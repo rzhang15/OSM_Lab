@@ -1,5 +1,5 @@
 #======================================================================
-# 
+#
 #     sets the parameters for the model
 #     "Growth Model"
 #
@@ -7,16 +7,20 @@
 #     https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2927400
 #
 #     Simon Scheidegger, 11/16 ; 07/17
-#====================================================================== 
+#======================================================================
 
 import numpy as np
 
-#====================================================================== 
+#======================================================================
 
 # Depth of "Classical" Sparse grid
 iDepth=1
 iOut=1         # how many outputs
 which_basis = 1 #linear basis function (2: quadratic local basis)
+
+# Refinement level and tolerance of adaptive sparse grid
+fTol = 1.E-5
+refinement_level = 5
 
 # control of iterations
 numstart = 0   # which is iteration to start (numstart = 0: start from scratch, number=/0: restart)
@@ -25,11 +29,11 @@ numits = 10    # which is the iteration to end
 # How many random points for computing the errors
 No_samples = 1000
 
-#====================================================================== 
+#======================================================================
 
 # Model Paramters
 
-n_agents=2  # number of continuous dimensions of the model
+n_agents=2 # number of continuous dimensions of the model
 
 beta=0.8
 rho=0.95
@@ -55,8 +59,4 @@ l_up=1.0
 inv_bar=1e-2
 inv_up=10000.0
 
-#====================================================================== 
-
-
-
-
+#======================================================================

@@ -30,9 +30,11 @@ def EV_F(X, k_init, n_agents):
 # V infinity
 def V_INFINITY(k=[]):
     e=np.ones(len(k))
-    c=output_f(k,e)
-    v_infinity=utility(c,e)/(1-beta)
-    return v_infinity
+    v_infinity = 0
+    for i in theta:
+        c=i*output_f(k,e)
+        v_infinity+=utility(c,e)/(1-beta)
+    return v_infinity/5
 
 #=======================================================================
 #   Objective Function during VFI (note - we need to interpolate on an "old" sprase grid)
@@ -136,8 +138,10 @@ def EV_G(X, k_init, n_agents):
         G[i + n_agents]=lab[i]
         G[i+2*n_agents]=inv[i]
     
-    
-    f_prod=output_f(k_init, lab)
+    f_prod = 0
+    for i in theta:
+        f_prod=i*output_f(k_init, lab)
+    f_prod = f_prod/5
     Gamma_adjust=0.5*zeta*k_init*((inv/k_init - delta)**2.0)
     sectors_sum=cons + inv - delta*k_init - (f_prod - Gamma_adjust)
     G[3*n_agents]=np.sum(sectors_sum)
@@ -164,8 +168,10 @@ def EV_G_ITER(X, k_init, n_agents):
         G[i + n_agents]=lab[i]
         G[i+2*n_agents]=inv[i]
     
-    
-    f_prod=output_f(k_init, lab)
+    f_prod = 0
+    for i in theta:
+        f_prod=i*output_f(k_init, lab)
+    f_prod = f_prod/5
     Gamma_adjust=0.5*zeta*k_init*((inv/k_init - delta)**2.0)
     sectors_sum=cons + inv - delta*k_init - (f_prod - Gamma_adjust)
     G[3*n_agents]=np.sum(sectors_sum)

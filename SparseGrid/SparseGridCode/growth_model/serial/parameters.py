@@ -20,7 +20,7 @@ which_basis = 1 #linear basis function (2: quadratic local basis)
 
 # Refinement level and tolerance of adaptive sparse grid
 fTol = 1.E-5
-refinement_level = 5
+refinement_level = 2
 
 # control of iterations
 numstart = 0   # which is iteration to start (numstart = 0: start from scratch, number=/0: restart)
@@ -48,6 +48,8 @@ big_A=(1.0-beta)/(psi*beta)
 range_cube=1 # range of [0..1]^d in 1D
 k_bar=0.2
 k_up=3.0
+
+theta = np.linspace(0.9,1.1,5)
 
 # Ranges for Controls
 c_bar=1e-2

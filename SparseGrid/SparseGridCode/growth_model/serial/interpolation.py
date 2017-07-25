@@ -16,9 +16,10 @@ import nonlinear_solver_initial as solver
 
 #======================================================================
 
-def sparse_grid(n_agents, iDepth):
+def sparse_grid(n_agents, iDepth, theta):
 
-    grid1  = TasmanianSG.TasmanianSparseGrid()
+    grid1 = TasmanianSG.TasmanianSparseGrid()
+    theta = theta_range[itheta]
 
     k_range=np.array([k_bar, k_up])
 
@@ -37,9 +38,8 @@ def sparse_grid(n_agents, iDepth):
     aVals=np.empty([iNumP1, 1])
 
     for iI in range(iNumP1):
-        aVals[iI]=solver.initial(aPoints[iI], n_agents)[0]
-        v=aVals[iI]*np.ones((1,1))        
-    file=open("comparison0.txt", 'w')
+        aVals[iI]=solver.initial(aPoints[iI], n_agents, theta)[0]
+        v=aVals[iI]*np.ones((1,1))
 
     grid1.loadNeededPoints(aVals)
 
@@ -48,12 +48,9 @@ def sparse_grid(n_agents, iDepth):
         aPoints = grid1.getNeededPoints()
         aVals = np.empty([aPoints.shape[0], 1])
         for iI in range(iNumP1):
-            aVals[iI]=solver.initial(aPoints[iI], n_agents)[0]
+            aVals[iI]=solver.initial(aPoints[iI], n_agents, theta)[0]
             v=aVals[iI]*np.ones((1,1))
-            to_print=np.hstack((aPoints[iI].reshape(1,n_agents), v))
-            np.savetxt(file, to_print, fmt='%2.16f')
         grid1.loadNeededPoints(aVals)
-    file.close()
 
     return grid1
 #======================================================================

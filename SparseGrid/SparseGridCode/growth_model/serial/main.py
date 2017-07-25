@@ -1,6 +1,6 @@
 #======================================================================
 #
-#     This routine solves an infinite horizon growth model 
+#     This routine solves an infinite horizon growth model
 #     with dynamic programming and sparse grids
 #
 #     The model is described in Scheidegger & Bilionis (2017)
@@ -29,25 +29,31 @@ import numpy as np
 # Start with Value Function Iteration
 
 # terminal value function
-valnew=TasmanianSG.TasmanianSparseGrid()
+valnew=[TasmanianSG.TasmanianSparseGrid()]*5
+
 if (numstart==0):
-    valnew=interpol.sparse_grid(n_agents, iDepth)
-    valnew.write("valnew_1." + str(numstart) + ".txt") #write file to disk for restart
+    for itheta in range(ntheta):
+        valnew[itheta]=interpol.sparse_grid(n_agents, iDepth, theta_range[itheta])
+        valnew[itheta].write("valnew_" + str(theta_range[itheta]) + '_'+str(numstart)+".txt") #write file to disk for restart
 
 # value function during iteration
 else:
-    valnew.read("valnew_1." + str(numstart) + ".txt")  #write file to disk for restart
-    
-valold=TasmanianSG.TasmanianSparseGrid()
+    for itheta in range(ntheta):
+        valnew[itheta].read("valnew_" + str(theta_range[itheta]) + '_'+str(numstart)+".txt") #write file to disk for restart
+
+valold=[TasmanianSG.TasmanianSparseGrid()]*5
 valold=valnew
 
 for i in range(numstart, numits):
-    valnew=TasmanianSG.TasmanianSparseGrid()
-    valnew=interpol_iter.sparse_grid_iter(n_agents, iDepth, valold)
-    valold=TasmanianSG.TasmanianSparseGrid()
+    valnew=[TasmanianSG.TasmanianSparseGrid()]*5
+    for itheta in range(ntheta):
+        valnew[itheta]=interpol_iter.sparse_grid_iter(n_agents, iDepth, valold, theta_range[itheta])
+    valold=[TasmanianSG.TasmanianSparseGrid()]*5
     valold=valnew
-    valnew.write("valnew_1." + str(i+1) + ".txt")
-    
+
+    for itheta in range(ntheta):
+        valnew[itheta].write("valnew_" + str(theta_range[itheta]) + '_'+str(i+1)+".txt")
+
 #======================================================================
 print "==============================================================="
 print " "
@@ -56,7 +62,7 @@ print " "
 print "==============================================================="
 #======================================================================
 
-# compute errors   
+# compute errors
 avg_err=post.ls_error(n_agents, numstart, numits, No_samples)
 
 #======================================================================

@@ -13,15 +13,15 @@ from ipopt_wrapper import EV_F_ITER, EV_GRAD_F_ITER, EV_G_ITER, EV_JAC_G_ITER
 import numpy as np
 import pyipopt
 
-def iterate(k_init, n_agents, grid):
-    
+def iterate(k_init, n_agents, grid, theta):
+
     # IPOPT PARAMETERS below "
     N=3*n_agents    # number of vars
     M=3*n_agents+1  # number of constraints
     NELE_JAC=N*M
     NELE_HESS=(N**2-N)/2 + N    # number of non-zero entries of Hess matrix
-    
-    # Vector of variables -> solution of non-linear equation system 
+
+    # Vector of variables -> solution of non-linear equation system
     X=np.empty(N)
 
     LAM=np.empty(M) # multipliers
@@ -37,7 +37,7 @@ def iterate(k_init, n_agents, grid):
     Z_L=np.empty(N)
     Z_U=np.empty(N)
 
-    # get coords of an individual grid points 
+    # get coords of an individual grid points
     grid_pt_box=k_init
     X_L[:n_agents]=c_bar
     X_U[:n_agents]=c_up
@@ -48,7 +48,7 @@ def iterate(k_init, n_agents, grid):
     X_L[2*n_agents:3*n_agents]=inv_bar
     X_U[2*n_agents:3*n_agents]=inv_up
 
-    # Set bounds for the constraints 
+    # Set bounds for the constraints
     G_L[:n_agents]=c_bar
     G_U[:n_agents]=c_up
 
@@ -69,22 +69,22 @@ def iterate(k_init, n_agents, grid):
     X[:n_agents]=cons_init
     X[n_agents:2*n_agents]=lab_init
     X[2*n_agents:3*n_agents]=inv_init
-    
-    # Create ev_f, eval_f, eval_grad_f, eval_g, eval_jac_g for given k_init and n_agent 
-        
+
+    # Create ev_f, eval_f, eval_grad_f, eval_g, eval_jac_g for given k_init and n_agent
+
     def eval_f(X):
-        return EV_F_ITER(X, k_init, n_agents, grid)
-        
+        return EV_F_ITER(X, k_init, n_agents, grid, theta)
+
     def eval_grad_f(x):
-        return EV_GRAD_F_ITER(X, k_init, n_agents, grid)
-        
+        return EV_GRAD_F_ITER(X, k_init, n_agents, grid, theta)
+
     def eval_g(x):
-        return EV_G_ITER(X, k_init, n_agents)
-        
+        return EV_G_ITER(X, k_init, n_agents, theta)
+
     def eval_jac_g(x, flag):
-        return EV_JAC_G_ITER(X, flag, k_init, n_agents)
-        
-    # First create a handle for the Ipopt problem 
+        return EV_JAC_G_ITER(X, flag, k_init, n_agents, theta)
+
+    # First create a handle for the Ipopt problem
     nlp=pyipopt.create(N, X_L, X_U, M, G_L, G_U, NELE_JAC, NELE_HESS, eval_f, eval_grad_f, eval_g, eval_jac_g)
     nlp.num_option("obj_scaling_factor", -1.00)
     nlp.num_option("tol", 1e-6)
@@ -92,7 +92,7 @@ def iterate(k_init, n_agents, grid):
     nlp.str_option("derivative_test", "first-order")
     nlp.str_option("hessian_approximation", "limited-memory")
     nlp.int_option("print_level", 0)
-    
+
     x, z_l, z_u, constraint_multipliers, obj, status=nlp.solve(X)
     nlp.close()
     # x: Solution of the primal variables
@@ -106,7 +106,7 @@ def iterate(k_init, n_agents, grid):
     l=x[n_agents:2*n_agents]
     inv=x[2*n_agents:3*n_agents]
     to_print=np.hstack((obj,x))
-    
+
     # === debug
     #f=open("results.txt", 'a')
     #np.savetxt(f, np.transpose(to_print) #, fmt=len(x)*'%10.10f ')
@@ -114,5 +114,5 @@ def iterate(k_init, n_agents, grid):
     #    f.write(str(num)+"\t")
     #f.write("\n")
     #f.close()
-    
+
     return obj, c, l, inv

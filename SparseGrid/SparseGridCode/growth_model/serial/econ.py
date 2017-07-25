@@ -34,7 +34,7 @@ def utility(cons=[], lab=[]):
 #======================================================================
 # output_f
 
-def output_f(kap=[], lab=[], theta):
+def output_f(theta, kap=[], lab=[]):
     fun_val = theta*big_A*(kap**psi)*(lab**(1.0 - psi))
     return fun_val
 

@@ -49,7 +49,8 @@ range_cube=1 # range of [0..1]^d in 1D
 k_bar=0.2
 k_up=3.0
 
-theta = np.linspace(0.9,1.1,5)
+theta_range = np.array([0.9,0.95,1.,1.05,1.1])
+ntheta = len(theta_range)
 
 # Ranges for Controls
 c_bar=1e-2

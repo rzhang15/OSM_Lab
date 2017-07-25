@@ -28,7 +28,7 @@ def EV_F(X, k_init, n_agents, theta):
     return VT_sum
 
 # V infinity
-def V_INFINITY(k=[],theta):
+def V_INFINITY(theta, k=[]):
     e=np.ones(len(k))
     c=output_f(k,e,theta)
     v_infinity=utility(c,e)/(1-beta)

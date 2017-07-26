@@ -23,7 +23,7 @@ def EV_F(X, k_init, n_agents, theta):
     knext= (1-delta)*k_init + inv
     # Compute Value Function
 
-    VT_sum=utility(cons, lab) + beta*V_INFINITY(knext, theta)
+    VT_sum=utility(cons, lab) + beta*V_INFINITY(theta, knext)
 
     return VT_sum
 

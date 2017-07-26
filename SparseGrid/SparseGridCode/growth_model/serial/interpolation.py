@@ -19,7 +19,6 @@ import nonlinear_solver_initial as solver
 def sparse_grid(n_agents, iDepth, theta):
 
     grid1 = TasmanianSG.TasmanianSparseGrid()
-    theta = theta_range[itheta]
 
     k_range=np.array([k_bar, k_up])
 

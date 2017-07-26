@@ -66,7 +66,7 @@ print "==============================================================="
 avg_err=post.ls_error(n_agents, numstart, numits, No_samples)
 
 # plot graphs
-graphs=plot_routine(n_agents, valnew, dim, num_points)
+graphs=post.plot_routine(n_agents, valnew, dim, num_points)
 
 #======================================================================
 print "==============================================================="

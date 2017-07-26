@@ -34,7 +34,7 @@ def plot_routine(n_agents, grid, dim, num_points):
 #======================================================================
 # Routine compute the errors
 def ls_error(n_agents, t1, t2, num_points):
-    for itheta in range(ntheta)
+    for itheta in range(ntheta):
         file=open('errors'+str(theta_range[itheta])+'.txt', 'w')
 
         np.random.seed(0)

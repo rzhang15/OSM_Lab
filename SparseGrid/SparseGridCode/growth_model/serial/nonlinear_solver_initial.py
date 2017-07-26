@@ -85,7 +85,7 @@ def initial(k_init, n_agents, theta):
         return EV_GRAD_F(X,k_init, n_agents, theta)
 
     def eval_g(X):
-        return EV_G(X, k_init, n_agents, theta, theta)
+        return EV_G(X, k_init, n_agents, theta)
 
     def eval_jac_g(X, flag):
         return EV_JAC_G(X, flag, k_init, n_agents, theta)

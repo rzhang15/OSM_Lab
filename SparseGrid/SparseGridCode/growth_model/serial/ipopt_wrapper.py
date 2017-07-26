@@ -37,7 +37,7 @@ def V_INFINITY(theta, k=[]):
 #=======================================================================
 #   Objective Function during VFI (note - we need to interpolate on an "old" list of sprase grid)
 
-def EV_F_ITER(X, k_init, n_agents, grid):
+def EV_F_ITER(X, k_init, n_agents, grid, theta):
 
     # Extract Variables
     cons=X[0:n_agents]

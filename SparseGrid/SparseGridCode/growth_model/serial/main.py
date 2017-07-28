@@ -33,7 +33,7 @@ valnew=[TasmanianSG.TasmanianSparseGrid()]*5
 
 if (numstart==0):
     for itheta in range(ntheta):
-        valnew[itheta]=interpol.sparse_grid(n_agents, iDepth, theta_range[itheta])
+        valnew[itheta]=interpol.sparse_grid(n_agents, iDepth, 1)
         valnew[itheta].write("valnew_" + str(theta_range[itheta]) + '_'+str(numstart)+".txt") #write file to disk for restart
 
 # value function during iteration
@@ -48,8 +48,7 @@ for i in range(numstart, numits):
     valnew=[TasmanianSG.TasmanianSparseGrid()]*5
     for itheta in range(ntheta):
         valnew[itheta]=interpol_iter.sparse_grid_iter(n_agents, iDepth, valold, theta_range[itheta])
-    valold=[TasmanianSG.TasmanianSparseGrid()]*5
-    valold=valnew
+        valold[itheta]=valnew[itheta]
 
     for itheta in range(ntheta):
         valnew[itheta].write("valnew_" + str(theta_range[itheta]) + '_'+str(i+1)+".txt")
@@ -66,7 +65,7 @@ print "==============================================================="
 avg_err=post.ls_error(n_agents, numstart, numits, No_samples)
 
 # plot graphs
-graphs=post.plot_routine(n_agents, valnew, dim, num_points)
+graphs=post.plot_routine(n_agents, valnew, n_agents, num_points)
 
 #======================================================================
 print "==============================================================="

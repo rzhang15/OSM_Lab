@@ -1,0 +1,38 @@
+# Copyright (C) 2010 Jelmer Ypma. All Rights Reserved.
+# This code is published under the Eclipse Public License.
+#
+# File:   Makevars.in
+# Author: Jelmer Ypma
+# Date:   14 April 2010
+#
+# Changelog:
+# 30/01/2011 - Changed LIBS to IPOPT_LIBS and INCL to IPOPT_INCL, since R re-defines LIBS and INCL.
+
+
+# C++ Compiler command
+CXX = g++
+
+# C++ Compiler options
+IPOPT_CXXFLAGS = -O3 -pipe -DNDEBUG -pedantic-errors -Wparentheses -Wreturn-type -Wcast-qual -Wall -Wpointer-arith -Wwrite-strings -Wconversion -Wno-unknown-pragmas -Wno-long-long   -DIPOPT_BUILD
+
+# additional C++ Compiler options for linking
+IPOPT_CXXLINKFLAGS =  -Wl,--rpath -Wl,/home/rccguest0056/OSML/OSM_Lab/SparseGrid/SparseGridCode/pyipopt_midway/Ipopt-3.12.5/build/lib
+
+# Include directories (we use the CYGPATH_W variables to allow compilation with Windows compilers)
+IPOPT_INCL = `PKG_CONFIG_PATH=/home/rccguest0056/OSML/OSM_Lab/SparseGrid/SparseGridCode/pyipopt_midway/Ipopt-3.12.5/build/lib64/pkgconfig:/home/rccguest0056/OSML/OSM_Lab/SparseGrid/SparseGridCode/pyipopt_midway/Ipopt-3.12.5/build/lib/pkgconfig:/home/rccguest0056/OSML/OSM_Lab/SparseGrid/SparseGridCode/pyipopt_midway/Ipopt-3.12.5/build/share/pkgconfig:/software/openmpi-1.6-el6-x86_64/lib/pkgconfig:/software/python-2.7-2015q2-el6-x86_64/lib/pkgconfig:/software/gdal-1.11-el6-x86_64/lib/pkgconfig:/software/proj-4.9-el6-x86_64/lib/pkgconfig:/software/qt-4.8-el6-x86_64/lib/pkgconfig:/software/graphviz-2.28-el6-x86_64/lib/pkgconfig:/software/netcdf-4.2-el6-x86_64/lib/pkgconfig pkg-config --cflags ipopt`
+#IPOPT_INCL = -I`$(CYGPATH_W) /home/rccguest0056/OSML/OSM_Lab/SparseGrid/SparseGridCode/pyipopt_midway/Ipopt-3.12.5/build/include/coin` 
+
+# Linker flags
+IPOPT_LIBS = `PKG_CONFIG_PATH=/home/rccguest0056/OSML/OSM_Lab/SparseGrid/SparseGridCode/pyipopt_midway/Ipopt-3.12.5/build/lib64/pkgconfig:/home/rccguest0056/OSML/OSM_Lab/SparseGrid/SparseGridCode/pyipopt_midway/Ipopt-3.12.5/build/lib/pkgconfig:/home/rccguest0056/OSML/OSM_Lab/SparseGrid/SparseGridCode/pyipopt_midway/Ipopt-3.12.5/build/share/pkgconfig:/software/openmpi-1.6-el6-x86_64/lib/pkgconfig:/software/python-2.7-2015q2-el6-x86_64/lib/pkgconfig:/software/gdal-1.11-el6-x86_64/lib/pkgconfig:/software/proj-4.9-el6-x86_64/lib/pkgconfig:/software/qt-4.8-el6-x86_64/lib/pkgconfig:/software/graphviz-2.28-el6-x86_64/lib/pkgconfig:/software/netcdf-4.2-el6-x86_64/lib/pkgconfig pkg-config --libs ipopt`  -Wl,--rpath -Wl,/home/rccguest0056/OSML/OSM_Lab/SparseGrid/SparseGridCode/pyipopt_midway/Ipopt-3.12.5/build/lib
+##IPOPT_LIBS = -link -libpath:`$(CYGPATH_W) /home/rccguest0056/OSML/OSM_Lab/SparseGrid/SparseGridCode/pyipopt_midway/Ipopt-3.12.5/build/lib` libipopt.lib -llapack -lblas -lm  -ldl
+#IPOPT_LIBS = -L/home/rccguest0056/OSML/OSM_Lab/SparseGrid/SparseGridCode/pyipopt_midway/Ipopt-3.12.5/build/lib -lipopt -llapack -lblas -lm  -ldl  -Wl,--rpath -Wl,/home/rccguest0056/OSML/OSM_Lab/SparseGrid/SparseGridCode/pyipopt_midway/Ipopt-3.12.5/build/lib
+
+# The following is necessary under cygwin, if native compilers are used
+CYGPATH_W = echo
+
+# Define objects for R to build
+OBJECTS = ipoptr.o IpoptRNLP.o IpoptRJournal.o
+
+# Convert to R macros
+PKG_LIBS = ${IPOPT_CXXLINKFLAGS} ${IPOPT_LIBS}
+PKG_CXXFLAGS = ${IPOPT_CXXFLAGS} ${IPOPT_INCL} -I../../../../../Ipopt/contrib/RInterface/src

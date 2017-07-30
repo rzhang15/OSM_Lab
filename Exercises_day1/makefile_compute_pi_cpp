@@ -1,0 +1,8 @@
+################################################
+all: compute_pi.cpp.exec
+################################################
+compute_pi.cpp.exec : compute_pi.cpp
+	g++ compute_pi.cpp -o compute_pi.cpp.exec
+################################################
+clean :
+	rm -f *.exec

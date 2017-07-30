@@ -1,0 +1,10 @@
+prefix=/home/rccguest0056/OSML/OSM_Lab/SparseGrid/pyipopt_midway/Ipopt-3.12.5/build
+libdir=/home/rccguest0056/OSML/OSM_Lab/SparseGrid/pyipopt_midway/Ipopt-3.12.5/build/Ipopt/src/Interfaces
+
+Name: IPOPT
+Description: Interior Point Optimizer
+URL: https://projects.coin-or.org/Ipopt
+Version: 3.12.5
+Libs: ${libdir}/libipopt.la -llapack -lblas -lm  -ldl
+Cflags: -I/home/rccguest0056/OSML/OSM_Lab/SparseGrid/pyipopt_midway/Ipopt-3.12.5/Ipopt/src/Interfaces -I/home/rccguest0056/OSML/OSM_Lab/SparseGrid/pyipopt_midway/Ipopt-3.12.5/Ipopt/src/Common -I/home/rccguest0056/OSML/OSM_Lab/SparseGrid/pyipopt_midway/Ipopt-3.12.5/Ipopt/src/LinAlg -I/home/rccguest0056/OSML/OSM_Lab/SparseGrid/pyipopt_midway/Ipopt-3.12.5/Ipopt/src/Algorithm -I/home/rccguest0056/OSML/OSM_Lab/SparseGrid/pyipopt_midway/Ipopt-3.12.5/Ipopt/src/contrib/CGPenalty -I/home/rccguest0056/OSML/OSM_Lab/SparseGrid/pyipopt_midway/Ipopt-3.12.5/Ipopt/src/contrib/LinearSolverLoader -I/home/rccguest0056/OSML/OSM_Lab/SparseGrid/pyipopt_midway/Ipopt-3.12.5/build/Ipopt/src/Common
+Requires: coinhsl >= 1.3 

@@ -1,0 +1,12 @@
+prefix=/home/rccguest0056/OSML/OSM_Lab/SparseGrid/pyipopt_midway/Ipopt-3.12.5/build
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include/coin/ThirdParty
+
+Name: HSL
+Description: Harwell Subroutines Library
+URL: https://projects.coin-or.org/BuildTools
+Version: 1.4.5
+Cflags: -I${includedir}
+Libs: -L${libdir} -lcoinhsl -lblas   -L/software/slurm-current-el6-x86_64/lib64/../lib64 -L/software/slurm-current-el6-x86_64/lib/../lib64 -L/software/openmpi-1.6-el6-x86_64/lib/../lib64 -L/software/python-2.7-2015q2-el6-x86_64/lib/../lib64 -L/software/gdal-1.11-el6-x86_64/lib/../lib64 -L/software/proj-4.9-el6-x86_64/lib/../lib64 -L/software/postgresql-9.2-el6-x86_64/lib/../lib64 -L/software/geos-3.4-el6-x86_64/lib/../lib64 -L/software/qt-4.8-el6-x86_64/lib/../lib64 -L/software/graphviz-2.28-el6-x86_64/lib/../lib64 -L/software/git-2.7-el6-x86_64/lib64/../lib64 -L/software/subversion-1.8-el6-x86_64/lib/../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/4.4.7 -L/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/software/slurm-current-el6-x86_64/lib64 -L/software/slurm-current-el6-x86_64/lib -L/software/openmpi-1.6-el6-x86_64/lib -L/software/python-2.7-2015q2-el6-x86_64/lib -L/software/gdal-1.11-el6-x86_64/lib -L/software/proj-4.9-el6-x86_64/lib -L/software/postgresql-9.2-el6-x86_64/lib -L/software/geos-3.4-el6-x86_64/lib -L/software/qt-4.8-el6-x86_64/lib -L/software/graphviz-2.28-el6-x86_64/lib -L/software/netcdf-4.2-el6-x86_64/lib -L/software/hdf5-1.8-el6-x86_64/lib -L/software/intel/composer_xe_2015/mkl/lib/intel64 -L/software/git-2.7-el6-x86_64/lib64 -L/software/subversion-1.8-el6-x86_64/lib -L/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../.. -lgfortranbegin -lgfortran -lm
+Requires: coinmetis 

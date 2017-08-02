@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <omp.h>
  
-void main()
+int main()
 {
-    double niter = 10000000;
+    int niter = 1e8;
     double x,y;
     int i;
     int count=0;
@@ -12,11 +13,13 @@ void main()
     double pi;
     //srand(time(NULL));
     //main loop
+    #pragma omp parallel for reduction(+:count)
     for (i=0; i<niter; ++i)
     {
         //get random points
-        x = (double)random()/RAND_MAX;
-        y = (double)random()/RAND_MAX;
+	unsigned int myseed = i;
+        x = (double)rand_r(&myseed)/RAND_MAX;
+        y = (double)rand_r(&myseed)/RAND_MAX;
         z = sqrt((x*x)+(y*y));
         //check to see if point is in unit circle
         if (z<=1)
@@ -24,5 +27,8 @@ void main()
             ++count;
         }
     }
-    pi = ((double)count/(double)niter)*4.0;          //p = 4(m/n)
-    //printf("Pi: %f\n", pi);
+    pi = ((double)count/(double)niter)*4.0;          
+    //p = 4(m/n)
+    printf("Pi: %f\n", pi);
+    return 0;
+}

@@ -1,0 +1,11 @@
+Number of Paths: 1000000
+Number of Periods: 12
+Underlying:      100
+Strike:          100
+Risk-Free Rate:  0.05
+Volatility:      0.2
+Maturity:        1
+European Call Price:   10.4676
+European Put Price:    5.57025
+Asian Call Price:   5.93495
+Asian Put Price:    3.25283

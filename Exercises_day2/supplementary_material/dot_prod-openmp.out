@@ -1,0 +1,3 @@
+dot of vectors with length 100000000 with 600 threads
+dot product 2.5e+15 which matches the expected value 2.5e+15
+that took 0.111459 seconds

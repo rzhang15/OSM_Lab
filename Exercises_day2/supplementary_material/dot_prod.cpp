@@ -12,6 +12,7 @@ int main(void){
     std::cout << "dot of vectors with length " << N  << " with " << num_threads << " threads" << std::endl;
 
     // initialize the vectors
+    #pragma omp parallel for
     for(int i=0; i<N; i++) {
         a[i] = 1./2.;
         b[i] = double(i+1);
@@ -19,7 +20,8 @@ int main(void){
 
     double time = -omp_get_wtime();
     double dot=0.;
-
+    
+    #pragma omp parallel for reduction(+:dot)
     for(int i=0; i<N; i++) {
         dot += a[i] * b[i];
     }
